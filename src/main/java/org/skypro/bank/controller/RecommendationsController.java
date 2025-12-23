@@ -17,10 +17,7 @@ public class RecommendationsController {
     }
 
     @GetMapping("{user_id}")
-//    public int getRandomTransactionAmount(@PathVariable UUID uuid){
-//        return recommendationsServiceSpring.getRandomTransactionAmount(uuid);
-//    }
-    public Recomendations recomendations(@PathVariable UUID user_id){
+    public Recomendations recomendations(@PathVariable UUID user_id) {
         return recommendationsServiceSpring.recomendations(user_id);
     }
 }

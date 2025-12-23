@@ -2,36 +2,35 @@ package org.skypro.bank.service;
 
 import org.skypro.bank.model.Dto;
 import org.skypro.bank.model.Recomendations;
-import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class RecommendationsServiceSpring{
-    private final RecommendationsRepository recommendationsRepository;
+public class RecommendationsServiceSpring {
     private final RecommendationRuleSetInvest500 recommendationRuleSetInvest500;
     private final RecommendationRuleSetSimpleloan recommendationRuleSetSimpleloan;
+    private final RecommendationRuleSetTopSaving recommendationRuleSetTopSaving;
 
-    public RecommendationsServiceSpring(RecommendationsRepository recommendationsRepository, RecommendationRuleSetInvest500 recommendationRuleSetInvest500, RecommendationRuleSetSimpleloan recommendationRuleSetSimpleloan) {
-        this.recommendationsRepository = recommendationsRepository;
+    public RecommendationsServiceSpring(RecommendationRuleSetInvest500 recommendationRuleSetInvest500, RecommendationRuleSetSimpleloan recommendationRuleSetSimpleloan, RecommendationRuleSetTopSaving recommendationRuleSetTopSaving) {
         this.recommendationRuleSetInvest500 = recommendationRuleSetInvest500;
         this.recommendationRuleSetSimpleloan = recommendationRuleSetSimpleloan;
+        this.recommendationRuleSetTopSaving = recommendationRuleSetTopSaving;
     }
 
-    public Recomendations recomendations(UUID user){
+    public Recomendations recomendations(UUID user) {
         List<Dto> listRecom = new ArrayList<>();
+
         Optional<Dto> resultA = recommendationRuleSetInvest500.check(user);
-        if (resultA.isPresent()) {
-            listRecom.add(resultA.get());
-        }
+        resultA.ifPresent(listRecom::add);
+
         Optional<Dto> resultB = recommendationRuleSetSimpleloan.check(user);
-        if (resultB.isPresent()) {
-            listRecom.add(resultB.get());
-        } else {
-            listRecom.isEmpty();
-        }
-        Recomendations recom = new Recomendations(listRecom, user);
-        return recom;
+        resultB.ifPresent(listRecom::add);
+
+        Optional<Dto> resultC = recommendationRuleSetTopSaving.check(user);
+        resultC.ifPresent(listRecom::add);
+
+        return new Recomendations(user, listRecom);
+
     }
 }

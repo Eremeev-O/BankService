@@ -14,7 +14,7 @@ public class RecommendationsRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Boolean getProductCheck(UUID user, String string){
+    public Boolean getProductCheck(UUID user, String string) {
         try {
             UUID result = jdbcTemplate.queryForObject(
                     "SELECT t.user_id FROM PUBLIC.TRANSACTIONS t\n" +
@@ -23,13 +23,12 @@ public class RecommendationsRepository {
                     UUID.class,
                     user, string);
             return true;
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return false;
         }
     }
 
-    public int getProductSum(UUID user, String string, String cashFlow){
+    public int getProductSum(UUID user, String string, String cashFlow) {
         Integer result = jdbcTemplate.queryForObject(
                 "SELECT SUM(t.AMOUNT) FROM PUBLIC.TRANSACTIONS t\n" +
                         "\tLEFT JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID=p.ID \n" +
@@ -38,5 +37,4 @@ public class RecommendationsRepository {
                 string, user, cashFlow);
         return result != null ? result : 0;
     }
-
 }

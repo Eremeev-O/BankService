@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Component
-public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet{
+public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
     private final RecommendationsRepository recommendationsRepository;
 
     public RecommendationRuleSetSimpleloan(RecommendationsRepository recommendationsRepository) {
@@ -21,7 +21,7 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet{
         Boolean resultB = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW");
         Boolean resultC = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > 100000;
 
-        if(resultA && resultB && resultC) {
+        if (resultA && resultB && resultC) {
             UUID id = UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f");
             String recom = "Простой кредит";
             String text = "Откройте мир выгодных кредитов с нами!\n" +

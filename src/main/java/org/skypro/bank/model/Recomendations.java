@@ -7,7 +7,7 @@ public class Recomendations {
     private final UUID user_id;
     private final List<Dto> recomendations;
 
-    public Recomendations(List<Dto> recomendations, UUID userId) {
+    public Recomendations(UUID userId, List<Dto> recomendations) {
         this.user_id = userId;
         this.recomendations = recomendations;
     }
