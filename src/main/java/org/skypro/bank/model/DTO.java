@@ -8,8 +8,9 @@ public class DTO {
     private final String name;
     private final String text;
 
-    public DTO(String name, String text) {
-        this.id = UUID.randomUUID();
+    public DTO(String name, UUID id, String text) {
+//        this.id = UUID.randomUUID();
+        this.id = id;
         this.name = name;
         this.text = text;
     }
@@ -36,5 +37,10 @@ public class DTO {
     @Override
     public int hashCode() {
         return Objects.hash(name, text);
+    }
+
+    @Override
+    public String toString() {
+        return "name :" + name + ", id : " + id + ", text : " + text;
     }
 }
