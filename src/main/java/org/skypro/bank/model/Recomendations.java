@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class Recomendations {
     private final UUID user_id;
-    private final List<DTO> recomendations;
+    private final List<Dto> recomendations;
 
-    public Recomendations(List<DTO> recomendations, UUID userId) {
+    public Recomendations(List<Dto> recomendations, UUID userId) {
         this.user_id = userId;
         this.recomendations = recomendations;
     }
@@ -16,7 +16,7 @@ public class Recomendations {
         return user_id;
     }
 
-    public List<DTO> getRecomendations() {
+    public List<Dto> getRecomendations() {
         return recomendations;
     }
 

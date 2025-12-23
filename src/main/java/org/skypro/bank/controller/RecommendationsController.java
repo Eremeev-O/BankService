@@ -1,14 +1,10 @@
 package org.skypro.bank.controller;
 
-import org.skypro.bank.model.DTO;
 import org.skypro.bank.model.Recomendations;
 import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.web.bind.annotation.*;
 import org.skypro.bank.service.RecommendationsServiceSpring;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
