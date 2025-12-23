@@ -1,6 +1,7 @@
 package org.skypro.bank.controller;
 
 import org.skypro.bank.model.DTO;
+import org.skypro.bank.model.Recomendations;
 import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.web.bind.annotation.*;
 import org.skypro.bank.service.RecommendationsServiceSpring;
@@ -23,7 +24,7 @@ public class RecommendationsController {
 //    public int getRandomTransactionAmount(@PathVariable UUID uuid){
 //        return recommendationsServiceSpring.getRandomTransactionAmount(uuid);
 //    }
-    public Map<UUID, List<DTO>> recomendations(@PathVariable UUID user_id){
+    public Recomendations recomendations(@PathVariable UUID user_id){
         return recommendationsServiceSpring.recomendations(user_id);
     }
 }

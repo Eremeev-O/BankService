@@ -1,9 +1,8 @@
 package org.skypro.bank.service;
 
 import org.skypro.bank.model.DTO;
+import org.skypro.bank.model.Recomendations;
 import org.skypro.bank.repository.RecommendationsRepository;
-import org.springframework.data.util.Optionals;
-import org.springframework.scheduling.support.DefaultScheduledTaskObservationConvention;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,21 +15,15 @@ public class RecommendationsServiceSpring implements RecommendationRuleSetInvest
         this.recommendationsRepository = recommendationsRepository;
     }
 
-//    public int getRandomTransactionAmount(UUID user){
-//        return recommendationsRepository.getRandomTransactionAmount(user);
-//    }
-
-    public Map<UUID, List<DTO>> recomendations(UUID user){
+    public Recomendations recomendations(UUID user){
         List<DTO> listRecom = new ArrayList<>();
-        Map<UUID, List<DTO>> recom = new HashMap<>(Collections.emptyMap());
         Optional<DTO> result = recomendationsInvest500(user);
         if (result.isPresent()) {
             listRecom.add(result.get());
         } else {
-            recom.isEmpty();
+            listRecom.isEmpty();
         }
-        recom.put(user, listRecom);
-        recom.put(UUID.fromString("147f6a0f-3b91-413b-ab99-87f081d60d5a"), listRecom);
+        Recomendations recom = new Recomendations(listRecom, user);
         return recom;
     }
 
