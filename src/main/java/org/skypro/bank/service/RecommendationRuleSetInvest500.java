@@ -17,8 +17,8 @@ public class RecommendationRuleSetInvest500 implements RecommendationRuleSet{
 
     @Override
     public Optional<Dto> check(UUID user) {
-        Boolean result = recommendationsRepository.getProductDebitOrInvest(user, "DEBIT");
-        Boolean result1 = !recommendationsRepository.getProductDebitOrInvest(user, "INVEST");
+        Boolean result = recommendationsRepository.getProductCheck(user, "DEBIT");
+        Boolean result1 = !recommendationsRepository.getProductCheck(user, "INVEST");
         Boolean result2 = recommendationsRepository.getProductSumSAVING(user)>1000;
         if(result && result1 && result2) {
             UUID id = UUID.fromString("147f6a0f-3b91-413b-ab99-87f081d60d5a");

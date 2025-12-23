@@ -22,7 +22,7 @@ public class RecommendationsRepository {
 //        return result != null ? result : 0;
 //    }
 
-    public Boolean getProductDebitOrInvest(UUID user, String string){
+    public Boolean getProductCheck(UUID user, String string){
         try {
             UUID result = jdbcTemplate.queryForObject(
                     "SELECT t.user_id FROM PUBLIC.TRANSACTIONS t\n" +
@@ -37,18 +37,6 @@ public class RecommendationsRepository {
         }
     }
 
-//    public Boolean getProductInvest(UUID user){
-//        try {
-//            Object result = jdbcTemplate.queryForObject(
-//                    "SELECT t.user_id FROM PUBLIC.TRANSACTIONS t LEFT JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID=p.ID WHERE t.user_id = ? AND p.TYPE='INVEST' LIMIT 1;",
-//                    Object.class,
-//                    user);
-//            return false;
-//        } catch (RuntimeException e) {
-//            return true;
-//        }
-//
-//    }
     public int getProductSumSAVING(UUID user){
         Integer result = jdbcTemplate.queryForObject(
                 "SELECT SUM(t.AMOUNT) FROM PUBLIC.TRANSACTIONS t\n" +
