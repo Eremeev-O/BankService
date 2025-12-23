@@ -14,14 +14,6 @@ public class RecommendationsRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-//    public int getRandomTransactionAmount(UUID user){
-//        Integer result = jdbcTemplate.queryForObject(
-//                "SELECT amount FROM transactions t WHERE t.user_id = ? LIMIT 1",
-//                Integer.class,
-//                user);
-//        return result != null ? result : 0;
-//    }
-
     public Boolean getProductCheck(UUID user, String string){
         try {
             UUID result = jdbcTemplate.queryForObject(
@@ -37,13 +29,13 @@ public class RecommendationsRepository {
         }
     }
 
-    public int getProductSumSAVING(UUID user){
+    public int getProductSum(UUID user, String string, String cashFlow){
         Integer result = jdbcTemplate.queryForObject(
                 "SELECT SUM(t.AMOUNT) FROM PUBLIC.TRANSACTIONS t\n" +
                         "\tLEFT JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID=p.ID \n" +
-                        "\tWHERE p.TYPE='SAVING' AND t.USER_ID = ?;",
+                        "\tWHERE p.TYPE=? AND t.USER_ID = ? AND t.TYPE = ?;",
                 Integer.class,
-                user);
+                string, user, cashFlow);
         return result != null ? result : 0;
     }
 

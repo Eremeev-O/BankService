@@ -9,7 +9,6 @@ public class Dto {
     private final String text;
 
     public Dto(String name, UUID id, String text) {
-//        this.id = UUID.randomUUID();
         this.id = id;
         this.name = name;
         this.text = text;
