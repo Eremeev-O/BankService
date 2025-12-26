@@ -31,6 +31,5 @@ public class RecommendationsServiceSpring {
         resultC.ifPresent(listRecom::add);
 
         return new Recomendations(user, listRecom);
-
     }
 }

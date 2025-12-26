@@ -19,7 +19,7 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
     public Optional<Dto> check(UUID user) {
         Boolean resultA = !recommendationsRepository.getProductCheck(user, "CREDIT");
         Boolean resultB = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW");
-        Boolean resultC = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > 100000;
+        Boolean resultC = recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW") > 100000;
 
         if (resultA && resultB && resultC) {
             UUID id = UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f");
