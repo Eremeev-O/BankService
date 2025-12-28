@@ -30,6 +30,16 @@ public class RecommendationsRepository {
         }
     }
 
+    public int getProductSum(UUID user, String string, String cashFlow) {
+        Integer result = jdbcTemplate.queryForObject(
+                "SELECT SUM(t.AMOUNT) FROM PUBLIC.TRANSACTIONS t\n" +
+                        "\tLEFT JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID=p.ID \n" +
+                        "\tWHERE p.TYPE=? AND t.USER_ID = ? AND t.TYPE = ?;",
+                Integer.class,
+                string, user, cashFlow);
+        return result != null ? result : 0;
+    }
+
     //— USER_OF
     public boolean isUserOf(UUID user, String productType) {
         String sql = "SELECT EXISTS(" +
@@ -73,19 +83,16 @@ public class RecommendationsRepository {
                 INNER JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID = p.ID
                 WHERE t.user_id = ? AND p.TYPE = ?""";
         Map<String, Object> result = jdbcTemplate.queryForMap(sql, user, productType);
+
         Long depositSum = (Long) result.get("deposit_sum");
         Long withdrawSum = (Long) result.get("withdraw_sum");
+        if (depositSum == null) {
+            depositSum = 0L;
+        }
+        if (withdrawSum == null) {
+            withdrawSum = 0L;
+        }
         return compareAmounts(depositSum, withdrawSum, operator);
-    }
-
-    public int getProductSum(UUID user, String string, String cashFlow) {
-        Integer result = jdbcTemplate.queryForObject(
-                "SELECT SUM(t.AMOUNT) FROM PUBLIC.TRANSACTIONS t\n" +
-                        "\tLEFT JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID=p.ID \n" +
-                        "\tWHERE p.TYPE=? AND t.USER_ID = ? AND t.TYPE = ?;",
-                Integer.class,
-                string, user, cashFlow);
-        return result != null ? result : 0;
     }
 
     private boolean isValidOperator(String op) {
