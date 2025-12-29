@@ -17,11 +17,11 @@ public class RecommendationRuleSetTopSaving implements RecommendationRuleSet {
 
     @Override
     public Optional<Dto> check(UUID user) {
-        Boolean result1 = recommendationsRepository.getProductCheck(user, "DEBIT");
-        Boolean result2 = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > 50000;
-        Boolean result3 = recommendationsRepository.getProductSum(user, "SAVING", "DEPOSIT") > 50000;
-        Boolean result4 = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT")
-                > recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW");
+
+        Boolean result1 = recommendationsRepository.isUserOf(user, "DEBIT");
+        Boolean result2 = recommendationsRepository.isTransactionsSumCompare(user, "DEBIT", "DEPOSIT", ">", 50000);
+        Boolean result3 = recommendationsRepository.isTransactionsSumCompare(user, "SAVING", "DEPOSIT", ">", 50000);
+        Boolean result4 = recommendationsRepository.isTransactionSumCompareDepositWithdraw(user, "DEBIT", ">");
 
         if (result1 && (result2 || result3) && result4) {
             UUID id = UUID.fromString("59efc529-2fff-41af-baff-90ccd7402925");

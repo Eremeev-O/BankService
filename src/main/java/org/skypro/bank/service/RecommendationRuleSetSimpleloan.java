@@ -17,9 +17,10 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
 
     @Override
     public Optional<Dto> check(UUID user) {
-        Boolean resultA = !recommendationsRepository.getProductCheck(user, "CREDIT");
-        Boolean resultB = recommendationsRepository.getProductSum(user, "DEBIT", "DEPOSIT") > recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW");
-        Boolean resultC = recommendationsRepository.getProductSum(user, "DEBIT", "WITHDRAW") > 100000;
+
+        Boolean resultA = !recommendationsRepository.isUserOf(user, "CREDIT");
+        Boolean resultB = recommendationsRepository.isTransactionSumCompareDepositWithdraw(user, "DEBIT", ">");
+        Boolean resultC = recommendationsRepository.isTransactionsSumCompare(user, "DEBIT", "WITHDRAW", ">", 100000);
 
         if (resultA && resultB && resultC) {
             UUID id = UUID.fromString("ab138afb-f3ba-4a93-b74f-0fcee86d447f");
@@ -37,8 +38,7 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
                     "Широкий выбор кредитных продуктов. Мы предлагаем кредиты на различные цели: покупку недвижимости, автомобиля, образование, лечение и многое другое.\n" +
                     "\n" +
                     "Не упустите возможность воспользоваться выгодными условиями кредитования от нашей компании!";
-            Optional<Dto> recomendation = Optional.of(new Dto(recom, id, text));
-            return recomendation;
+            return Optional.of(new Dto(recom, id, text));
         }
         return Optional.empty();
     }
