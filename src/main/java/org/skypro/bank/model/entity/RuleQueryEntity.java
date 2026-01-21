@@ -12,7 +12,7 @@ public class RuleQueryEntity {
 
     private String query;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "query_arguments", joinColumns = @JoinColumn(name = "query_id"))
     @OrderColumn
     private List<String> arguments;

@@ -5,6 +5,7 @@ import org.skypro.bank.model.Recomendations;
 import org.skypro.bank.model.entity.RecommendationRuleEntity;
 import org.skypro.bank.repository.DynamicRuleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -22,16 +23,19 @@ public class RecommendationsServiceSpring {
         this.evaluator = evaluator;
     }
 
+    @Transactional(readOnly = true)
     public Recomendations recomendations(UUID userId) {
         List<Dto> result = new ArrayList<>();
-
 
         staticRules.forEach(rule -> rule.check(userId).ifPresent(result::add));
 
         List<RecommendationRuleEntity> dynamicRules = dynamicRuleRepository.findAll();
+
         for (RecommendationRuleEntity rule : dynamicRules) {
-            boolean allMatch = rule.getRuleQueries().stream()
-                    .allMatch(q -> evaluator.evaluate(userId, q));
+                boolean allMatch = rule.getRuleQueries().stream()
+                    .allMatch(q -> {
+                        return evaluator.evaluate(userId, q);
+                    });
 
             if (allMatch) {
                 result.add(new Dto(rule.getProductName(), rule.getProductId(), rule.getProductText()));

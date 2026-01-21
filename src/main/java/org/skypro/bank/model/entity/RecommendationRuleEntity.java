@@ -25,7 +25,7 @@ public class RecommendationRuleEntity {
     private String productText;
 
     @JsonProperty("rule")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "rule_id")
     private List<RuleQueryEntity> ruleQueries;
 
