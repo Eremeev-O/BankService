@@ -3037,6 +3037,119 @@ Feature not supported: "cursorName" [50100-232]
 	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5155)
 	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-12-26 13:02:41.092472+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "PUBLIC" не найдена
+Table "PUBLIC" not found; SQL statement:
+SELECT SUM(t.AMOUNT)> ?FROM PUBLIC,TRANSACTIONS t INNER JOIN PUBLIC.PRODUCTS p ON t.PRODUCT_ID = p.ID WHERE t.user_id = ? AND p.TYPE = ? AND t.TYPE = ? [42102-240]
+2025-12-26 16:17:39.355817+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Недопустимое значение "4" для параметра "parameterIndex"
+Invalid value "4" for parameter "parameterIndex" [90008-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.getInvalidValueException(DbException.java:298)
+	at org.h2.jdbc.JdbcPreparedStatement.setParameter(JdbcPreparedStatement.java:1396)
+	at org.h2.jdbc.JdbcPreparedStatement.setString(JdbcPreparedStatement.java:388)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.setString(HikariProxyPreparedStatement.java)
+	at org.springframework.jdbc.core.StatementCreatorUtils.setValue(StatementCreatorUtils.java:437)
+	at org.springframework.jdbc.core.StatementCreatorUtils.setParameterValueInternal(StatementCreatorUtils.java:241)
+	at org.springframework.jdbc.core.StatementCreatorUtils.setParameterValue(StatementCreatorUtils.java:173)
+	at org.springframework.jdbc.core.ArgumentPreparedStatementSetter.doSetValue(ArgumentPreparedStatementSetter.java:71)
+	at org.springframework.jdbc.core.ArgumentPreparedStatementSetter.setValues(ArgumentPreparedStatementSetter.java:50)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$query$0(JdbcTemplate.java:735)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:669)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:731)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:756)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:892)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:911)
+	at org.skypro.bank.repository.RecommendationsRepository.isTransactionsSumCompare(RecommendationsRepository.java:56)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:190)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:158)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:719)
+	at org.skypro.bank.repository.RecommendationsRepository$$SpringCGLIB$$0.isTransactionsSumCompare(<generated>)
+	at org.skypro.bank.service.RecommendationRuleSetTopSaving.check(RecommendationRuleSetTopSaving.java:22)
+	at org.skypro.bank.service.RecommendationsServiceSpring.recomendations(RecommendationsServiceSpring.java:30)
+	at org.skypro.bank.controller.RecommendationsController.recomendations(RecommendationsController.java:21)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2025-12-26 16:59:39.179018+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0[*]FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; ожидалось "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0[*]FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; expected "[, ., ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum [42001-240]
+2025-12-26 17:01:13.471495+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.[*]user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; ожидалось "identifier"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.[*]user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; expected "identifier"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum [42001-240]
+2025-12-26 17:01:21.977340+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.[*]user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; ожидалось "identifier"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.[*]user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum"; expected "identifier"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user-id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum [42001-240]
+2025-12-26 17:03:26.361279+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE [*]'DEPOSIT' AS deposit_sum"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE [*]'DEPOSIT' AS deposit_sum"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum [42000-240]
+2025-12-26 17:03:31.330293+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE [*]'DEPOSIT' AS deposit_sum"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE [*]'DEPOSIT' AS deposit_sum"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE 'DEPOSIT' AS deposit_sum [42000-240]
+2025-12-26 17:05:04.488632+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' [*]AS deposit_sum"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' [*]AS deposit_sum"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' AS deposit_sum [42000-240]
+2025-12-26 17:05:10.251784+04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' [*]AS deposit_sum"
+Syntax error in SQL statement "SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' [*]AS deposit_sum"; SQL statement:
+SELECT COALESCE(SUM(t1.AMOUNT), 0)FROM PUBLIC.TRANSACTIONS t1 INNER JOIN PUBLIC.PRODUCTS p1 ON t1.PRODUCT_ID = p1.ID WHERE t1.user_id = ? AND p1.TYPE = ? AND t1.TYPE = 'DEPOSIT' AS deposit_sum [42000-240]
 2025-12-25 23:11:09.230049+04:00 jdbc[3]: exception
 java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
 	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1624)

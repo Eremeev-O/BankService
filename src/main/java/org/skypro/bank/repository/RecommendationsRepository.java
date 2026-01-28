@@ -29,6 +29,13 @@ public class RecommendationsRepository {
                 .build();
     }
 
+    public void clearAllCaches() {
+        userOfCache.invalidateAll();
+        activeUserCache.invalidateAll();
+        sumCompareCache.invalidateAll();
+        dwCompareCache.invalidateAll();
+    }
+
     public boolean isUserOf(UUID user, String productType) {
         String key = user.toString() + ":" + productType;
         return userOfCache.get(key, k -> {
