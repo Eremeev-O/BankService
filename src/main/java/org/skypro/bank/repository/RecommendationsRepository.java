@@ -101,6 +101,7 @@ public class RecommendationsRepository {
             default -> throw new IllegalArgumentException("Unknown operator");
         };
     }
+}
 
     public List<Map<String, Object>> findUserByName(String username) {
         String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM PUBLIC.USERS WHERE USERNAME = ?";

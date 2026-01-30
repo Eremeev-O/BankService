@@ -1,4 +1,4 @@
-package org.skypro.bank.controller;
+package org.skypro.bank.controller.management;
 
 import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.http.ResponseEntity;
