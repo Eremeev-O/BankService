@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -98,5 +100,10 @@ public class RecommendationsRepository {
             case "=" -> d == w;
             default -> throw new IllegalArgumentException("Unknown operator");
         };
+    }
+
+    public List<Map<String, Object>> findUserByName(String username) {
+        String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM PUBLIC.USERS WHERE USERNAME = ?";
+        return jdbcTemplate.queryForList(sql, username);
     }
 }
