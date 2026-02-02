@@ -108,8 +108,6 @@
         </dependency>
 	</dependencies>
 
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -127,7 +125,7 @@
                         <goals>
                             <goal>build-info</goal>
                         </goals>
-                        <phase>prepare-package</phase>
+                        <phase>generate-resources</phase>
                     </execution>
                 </executions>
             </plugin>

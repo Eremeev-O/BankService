@@ -39,19 +39,17 @@ public class RuleController {
     }
 
     @GetMapping("/stats")
-    public Map<String, List<Map<String, Object>>> getStats() {
+    public Map<String, List<Map<String, String>>> getStats() {
         List<RecommendationRuleEntity> rules = repository.findAll();
 
-        List<Map<String, Object>> statsList = rules.stream().map(rule -> {
+        List<Map<String, String>> statsList = rules.stream().map(rule -> {
             long count = statsRepository.findById(rule.getId())
                     .map(RuleStatEntity::getCount)
                     .orElse(0L);
 
-            // Используем явное указание типов для Map.of
-            // Также передаем count как число (Object это позволяет)
-            return Map.<String, Object>of(
+            return Map.of(
                     "rule_id", rule.getId().toString(),
-                    "count", count
+                    "count", String.valueOf(count) // В ТЗ в примере "count" в кавычках
             );
         }).toList();
 

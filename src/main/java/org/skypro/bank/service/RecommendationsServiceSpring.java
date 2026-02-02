@@ -40,8 +40,8 @@ public class RecommendationsServiceSpring {
 
             if (allMatch) {
                 result.add(new Dto(rule.getProductName(), rule.getProductId(), rule.getProductText()));
-                // Увеличиваем статистику
-                incrementStat(rule.getId());
+                // Вызываем атомарный инкремент
+                statsRepository.incrementCount(rule.getId());
             }
         }
         return new Recomendations(userId, result);

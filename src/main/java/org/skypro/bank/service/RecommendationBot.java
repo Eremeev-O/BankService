@@ -39,7 +39,10 @@ public class RecommendationBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
 
             if (text.startsWith("/start")) {
-                sendText(chatId, "Добро пожаловать! Используйте /recommend <username> для получения предложений.");
+                // ТЗ: приветствует и печатает справку
+                sendText(chatId, "Привет! Я бот банковских рекомендаций.\n" +
+                        "Чтобы получить предложения, используйте команду:\n" +
+                        "/recommend username");
             } else if (text.startsWith("/recommend")) {
                 handleRecommend(chatId, text);
             }
@@ -47,35 +50,39 @@ public class RecommendationBot extends TelegramLongPollingBot {
     }
 
     private void handleRecommend(long chatId, String command) {
-        String[] parts = command.split(" ");
+        String[] parts = command.split("\\s+");
         if (parts.length < 2) {
-            sendText(chatId, "Укажите имя пользователя: /recommend username");
+            sendText(chatId, "Пользователь не найден"); // Или инструкцию
             return;
         }
 
         String username = parts[1];
         List<Map<String, Object>> users = recommendationsRepository.findUserByName(username);
 
-        if (users.isEmpty() || users.size() > 1) {
+        // ТЗ: Если не найден ИЛИ найдено несколько -> "Пользователь не найден"
+        if (users.size() != 1) {
             sendText(chatId, "Пользователь не найден");
             return;
         }
 
         Map<String, Object> user = users.get(0);
-//        UUID userId = (UUID) user.get("ID");
         UUID userId = UUID.fromString(user.get("ID").toString());
-        String fullName = user.get("FIRST_NAME") + " " + user.get("LAST_NAME");
+        String firstName = (String) user.get("FIRST_NAME");
+        String lastName = (String) user.get("LAST_NAME");
 
         Recomendations recs = recommendationsService.recomendations(userId);
 
-        StringBuilder response = new StringBuilder("Здравствуйте, " + fullName + "\n");
+        // ТЗ: Здравствуйте <Имя и фамилия пользователя>
+        StringBuilder response = new StringBuilder("Здравствуйте " + firstName + " " + lastName + "\n");
         response.append("Новые продукты для вас:\n");
 
         if (recs.getRecomendations().isEmpty()) {
-            response.append("К сожалению, сейчас для вас нет новых предложений.");
+            response.append("На данный момент предложений нет.");
         } else {
             recs.getRecomendations().forEach(dto ->
-                    response.append("- ").append(dto.getName()).append(": ").append(dto.getText()).append("\n\n")
+                    // ТЗ: удобно отформатированный список
+                    response.append("● ").append(dto.getName()).append("\n")
+                            .append(dto.getText()).append("\n\n")
             );
         }
 
