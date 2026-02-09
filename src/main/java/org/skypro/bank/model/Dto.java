@@ -3,28 +3,14 @@ package org.skypro.bank.model;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Dto {
-    private final UUID id;
-    private final String name;
-    private final String text;
-
-    public Dto(String name, UUID id, String text) {
-        this.id = id;
-        this.name = name;
-        this.text = text;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getText() {
-        return text;
-    }
+/**
+ * Объект передачи данных, представляющий банковский продукт в рекомендациях.
+ *
+ * @param name название продукта
+ * @param id уникальный идентификатор продукта
+ * @param text маркетинговое описание продукта
+ */
+public record Dto(String name, UUID id, String text) {
 
     @Override
     public boolean equals(Object o) {

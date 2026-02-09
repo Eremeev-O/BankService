@@ -1,18 +1,21 @@
 package org.skypro.bank.service;
 
+import org.skypro.bank.model.Recomendations;
+import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.skypro.bank.model.Recomendations;
-import org.skypro.bank.repository.RecommendationsRepository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+/**
+ * Telegram-бот для предоставления банковских рекомендаций через мессенджер.
+ * Поддерживает команды /start и /recommend {username}.
+ */
 @Component
 public class RecommendationBot extends TelegramLongPollingBot {
 
@@ -39,7 +42,9 @@ public class RecommendationBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
 
             if (text.startsWith("/start")) {
-                sendText(chatId, "Добро пожаловать! Используйте /recommend <username> для получения предложений.");
+                sendText(chatId, "Привет! Я бот банковских рекомендаций.\n" +
+                        "Чтобы получить предложения, используйте команду:\n" +
+                        "/recommend username");
             } else if (text.startsWith("/recommend")) {
                 handleRecommend(chatId, text);
             }
@@ -47,35 +52,36 @@ public class RecommendationBot extends TelegramLongPollingBot {
     }
 
     private void handleRecommend(long chatId, String command) {
-        String[] parts = command.split(" ");
+        String[] parts = command.split("\\s+");
         if (parts.length < 2) {
-            sendText(chatId, "Укажите имя пользователя: /recommend username");
+            sendText(chatId, "Пользователь не найден"); // Или инструкцию
             return;
         }
 
         String username = parts[1];
         List<Map<String, Object>> users = recommendationsRepository.findUserByName(username);
 
-        if (users.isEmpty() || users.size() > 1) {
+        if (users.size() != 1) {
             sendText(chatId, "Пользователь не найден");
             return;
         }
 
         Map<String, Object> user = users.get(0);
-//        UUID userId = (UUID) user.get("ID");
         UUID userId = UUID.fromString(user.get("ID").toString());
-        String fullName = user.get("FIRST_NAME") + " " + user.get("LAST_NAME");
+        String firstName = (String) user.get("FIRST_NAME");
+        String lastName = (String) user.get("LAST_NAME");
 
         Recomendations recs = recommendationsService.recomendations(userId);
 
-        StringBuilder response = new StringBuilder("Здравствуйте, " + fullName + "\n");
+        StringBuilder response = new StringBuilder("Здравствуйте " + firstName + " " + lastName + "\n");
         response.append("Новые продукты для вас:\n");
 
-        if (recs.getRecomendations().isEmpty()) {
-            response.append("К сожалению, сейчас для вас нет новых предложений.");
+        if (recs.recomendations().isEmpty()) {
+            response.append("На данный момент предложений нет.");
         } else {
-            recs.getRecomendations().forEach(dto ->
-                    response.append("- ").append(dto.getName()).append(": ").append(dto.getText()).append("\n\n")
+            recs.recomendations().forEach(dto ->
+                    response.append("● ").append(dto.name()).append("\n")
+                            .append(dto.text()).append("\n\n")
             );
         }
 

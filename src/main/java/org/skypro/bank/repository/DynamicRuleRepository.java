@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Репозиторий для работы с динамическими правилами в основной БД.
+ */
 @Repository
 public interface DynamicRuleRepository extends JpaRepository<RecommendationRuleEntity, UUID> {
 

@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для управления кэшем приложения.
+ * Используется в технических целях (management).
+ */
 @RestController
 @RequestMapping("/management")
 public class CacheManagementController {
