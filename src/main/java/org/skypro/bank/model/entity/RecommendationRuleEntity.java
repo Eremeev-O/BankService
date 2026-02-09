@@ -2,9 +2,14 @@ package org.skypro.bank.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сущность, описывающая динамическое правило рекомендации в базе данных.
+ * Связывает продукт с набором условий (запросов), которые должны быть выполнены для рекомендации.
+ */
 @Entity
 @Table(name = "recommendation_rules")
 public class RecommendationRuleEntity {
@@ -29,14 +34,43 @@ public class RecommendationRuleEntity {
     @JoinColumn(name = "rule_id")
     private List<RuleQueryEntity> ruleQueries;
 
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
-    public String getProductName() { return productName; }
-    public void setProductName(String productName) { this.productName = productName; }
-    public UUID getProductId() { return productId; }
-    public void setProductId(UUID productId) { this.productId = productId; }
-    public String getProductText() { return productText; }
-    public void setProductText(String productText) { this.productText = productText; }
-    public List<RuleQueryEntity> getRuleQueries() { return ruleQueries; }
-    public void setRuleQueries(List<RuleQueryEntity> ruleQueries) { this.ruleQueries = ruleQueries; }
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public void setProductId(UUID productId) {
+        this.productId = productId;
+    }
+
+    public String getProductText() {
+        return productText;
+    }
+
+    public void setProductText(String productText) {
+        this.productText = productText;
+    }
+
+    public List<RuleQueryEntity> getRuleQueries() {
+        return ruleQueries;
+    }
+
+    public void setRuleQueries(List<RuleQueryEntity> ruleQueries) {
+        this.ruleQueries = ruleQueries;
+    }
 }

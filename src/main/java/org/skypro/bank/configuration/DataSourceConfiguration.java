@@ -13,6 +13,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
+/**
+ * Конфигурационный класс для настройки источников данных.
+ * Поддерживает работу с основной БД (PostgreSQL) для хранения правил и
+ * аналитической БД (H2) для анализа транзакций.
+ */
 @Configuration
 public class DataSourceConfiguration {
 

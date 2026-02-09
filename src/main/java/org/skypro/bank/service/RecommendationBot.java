@@ -1,18 +1,21 @@
 package org.skypro.bank.service;
 
+import org.skypro.bank.model.Recomendations;
+import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.skypro.bank.model.Recomendations;
-import org.skypro.bank.repository.RecommendationsRepository;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+/**
+ * Telegram-бот для предоставления банковских рекомендаций через мессенджер.
+ * Поддерживает команды /start и /recommend {username}.
+ */
 @Component
 public class RecommendationBot extends TelegramLongPollingBot {
 
@@ -39,7 +42,6 @@ public class RecommendationBot extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
 
             if (text.startsWith("/start")) {
-                // ТЗ: приветствует и печатает справку
                 sendText(chatId, "Привет! Я бот банковских рекомендаций.\n" +
                         "Чтобы получить предложения, используйте команду:\n" +
                         "/recommend username");
@@ -59,7 +61,6 @@ public class RecommendationBot extends TelegramLongPollingBot {
         String username = parts[1];
         List<Map<String, Object>> users = recommendationsRepository.findUserByName(username);
 
-        // ТЗ: Если не найден ИЛИ найдено несколько -> "Пользователь не найден"
         if (users.size() != 1) {
             sendText(chatId, "Пользователь не найден");
             return;
@@ -72,17 +73,15 @@ public class RecommendationBot extends TelegramLongPollingBot {
 
         Recomendations recs = recommendationsService.recomendations(userId);
 
-        // ТЗ: Здравствуйте <Имя и фамилия пользователя>
         StringBuilder response = new StringBuilder("Здравствуйте " + firstName + " " + lastName + "\n");
         response.append("Новые продукты для вас:\n");
 
-        if (recs.getRecomendations().isEmpty()) {
+        if (recs.recomendations().isEmpty()) {
             response.append("На данный момент предложений нет.");
         } else {
-            recs.getRecomendations().forEach(dto ->
-                    // ТЗ: удобно отформатированный список
-                    response.append("● ").append(dto.getName()).append("\n")
-                            .append(dto.getText()).append("\n\n")
+            recs.recomendations().forEach(dto ->
+                    response.append("● ").append(dto.name()).append("\n")
+                            .append(dto.text()).append("\n\n")
             );
         }
 

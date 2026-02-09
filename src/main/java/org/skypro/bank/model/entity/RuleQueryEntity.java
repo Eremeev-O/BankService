@@ -1,8 +1,12 @@
 package org.skypro.bank.model.entity;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
+/**
+ * Сущность, представляющая конкретное условие внутри динамического правила.
+ */
 @Entity
 @Table(name = "rule_queries")
 public class RuleQueryEntity {
@@ -19,10 +23,27 @@ public class RuleQueryEntity {
 
     private boolean negate;
 
-    public String getQuery() { return query; }
-    public void setQuery(String query) { this.query = query; }
-    public List<String> getArguments() { return arguments; }
-    public void setArguments(List<String> arguments) { this.arguments = arguments; }
-    public boolean isNegate() { return negate; }
-    public void setNegate(boolean negate) { this.negate = negate; }
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public List<String> getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(List<String> arguments) {
+        this.arguments = arguments;
+    }
+
+    public boolean isNegate() {
+        return negate;
+    }
+
+    public void setNegate(boolean negate) {
+        this.negate = negate;
+    }
 }

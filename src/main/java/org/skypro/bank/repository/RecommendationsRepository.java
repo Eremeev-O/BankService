@@ -11,6 +11,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Репозиторий для выполнения аналитических запросов к базе данных транзакций.
+ * Использует Caffeine для кэширования результатов запросов с целью оптимизации производительности.
+ */
 @Repository
 public class RecommendationsRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -103,7 +107,7 @@ public class RecommendationsRepository {
     }
 
     public List<Map<String, Object>> findUserByName(String username) {
-    String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM PUBLIC.USERS WHERE USERNAME = ?";
-    return jdbcTemplate.queryForList(sql, username);
+        String sql = "SELECT ID, FIRST_NAME, LAST_NAME FROM PUBLIC.USERS WHERE USERNAME = ?";
+        return jdbcTemplate.queryForList(sql, username);
     }
 }

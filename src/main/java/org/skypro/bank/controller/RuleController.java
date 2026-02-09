@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Контроллер для управления динамическими правилами рекомендаций.
+ * Позволяет создавать, удалять правила и просматривать статистику их использования.
+ */
 @RestController
 @RequestMapping("/rule")
 public class RuleController {

@@ -9,8 +9,14 @@ import org.skypro.bank.repository.RuleStatsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
+/**
+ * Сервис для формирования персональных рекомендаций пользователям.
+ * Комбинирует заданные правила и динамические правила из базы данных.
+ */
 @Service
 public class RecommendationsServiceSpring {
     private final List<RecommendationRuleSet> staticRules;
@@ -28,6 +34,12 @@ public class RecommendationsServiceSpring {
         this.statsRepository = statsRepository;
     }
 
+    /**
+     * Формирует список рекомендаций для указанного пользователя.
+     *
+     * @param userId уникальный идентификатор пользователя
+     * @return объект Recomendations, содержащий список подходящих продуктов
+     */
     @Transactional
     public Recomendations recomendations(UUID userId) {
         List<Dto> result = new ArrayList<>();
