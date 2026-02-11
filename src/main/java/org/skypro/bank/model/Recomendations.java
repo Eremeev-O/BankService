@@ -9,6 +9,6 @@ import java.util.UUID;
  * @param user_id идентификатор пользователя
  * @param recomendations список подходящих продуктов
  */
-public record Recomendations(UUID user_id, List<Dto> recomendations) {
+public record Recomendations(UUID user_id, List<BankProductDto> recomendations) {
 
 }

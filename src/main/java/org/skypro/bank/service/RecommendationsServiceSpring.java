@@ -1,6 +1,6 @@
 package org.skypro.bank.service;
 
-import org.skypro.bank.model.Dto;
+import org.skypro.bank.model.BankProductDto;
 import org.skypro.bank.model.Recomendations;
 import org.skypro.bank.model.entity.RecommendationRuleEntity;
 import org.skypro.bank.model.entity.RuleStatEntity;
@@ -42,7 +42,7 @@ public class RecommendationsServiceSpring {
      */
     @Transactional
     public Recomendations recomendations(UUID userId) {
-        List<Dto> result = new ArrayList<>();
+        List<BankProductDto> result = new ArrayList<>();
         staticRules.forEach(rule -> rule.check(userId).ifPresent(result::add));
 
         List<RecommendationRuleEntity> dynamicRules = dynamicRuleRepository.findAll();
@@ -51,7 +51,7 @@ public class RecommendationsServiceSpring {
                     .allMatch(q -> evaluator.evaluate(userId, q));
 
             if (allMatch) {
-                result.add(new Dto(rule.getProductName(), rule.getProductId(), rule.getProductText()));
+                result.add(new BankProductDto(rule.getProductName(), rule.getProductId(), rule.getProductText()));
                 // Вызываем атомарный инкремент
                 statsRepository.incrementCount(rule.getId());
             }

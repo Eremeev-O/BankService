@@ -10,13 +10,13 @@ import java.util.UUID;
  * @param id уникальный идентификатор продукта
  * @param text маркетинговое описание продукта
  */
-public record Dto(String name, UUID id, String text) {
+public record BankProductDto(String name, UUID id, String text) {
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Dto dto = (Dto) o;
-        return Objects.equals(name, dto.name) && Objects.equals(text, dto.text);
+        BankProductDto bankProductDto = (BankProductDto) o;
+        return Objects.equals(name, bankProductDto.name) && Objects.equals(text, bankProductDto.text);
     }
 
     @Override
