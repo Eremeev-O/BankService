@@ -1,6 +1,6 @@
 package org.skypro.bank.service;
 
-import org.skypro.bank.model.Dto;
+import org.skypro.bank.model.BankProductDto;
 import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
     }
 
     @Override
-    public Optional<Dto> check(UUID user) {
+    public Optional<BankProductDto> check(UUID user) {
 
         Boolean resultA = !recommendationsRepository.isUserOf(user, "CREDIT");
         Boolean resultB = recommendationsRepository.isTransactionSumCompareDepositWithdraw(user, "DEBIT", ">");
@@ -38,7 +38,7 @@ public class RecommendationRuleSetSimpleloan implements RecommendationRuleSet {
                     "Широкий выбор кредитных продуктов. Мы предлагаем кредиты на различные цели: покупку недвижимости, автомобиля, образование, лечение и многое другое.\n" +
                     "\n" +
                     "Не упустите возможность воспользоваться выгодными условиями кредитования от нашей компании!";
-            return Optional.of(new Dto(recom, id, text));
+            return Optional.of(new BankProductDto(recom, id, text));
         }
         return Optional.empty();
     }

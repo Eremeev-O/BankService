@@ -1,6 +1,6 @@
 package org.skypro.bank.service;
 
-import org.skypro.bank.model.Dto;
+import org.skypro.bank.model.BankProductDto;
 import org.skypro.bank.repository.RecommendationsRepository;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class RecommendationRuleSetTopSaving implements RecommendationRuleSet {
     }
 
     @Override
-    public Optional<Dto> check(UUID user) {
+    public Optional<BankProductDto> check(UUID user) {
 
         Boolean result1 = recommendationsRepository.isUserOf(user, "DEBIT");
         Boolean result2 = recommendationsRepository.isTransactionsSumCompare(user, "DEBIT", "DEPOSIT", ">", 50000);
@@ -35,7 +35,7 @@ public class RecommendationRuleSetTopSaving implements RecommendationRuleSet {
                     "Безопасность и надежность. Ваши средства находятся под защитой банка, а доступ к ним возможен " +
                     "только через мобильное приложение или интернет-банкинг. Начните использовать «Копилку» уже " +
                     "сегодня и станьте ближе к своим финансовым целям!";
-            return Optional.of(new Dto(recom, id, text));
+            return Optional.of(new BankProductDto(recom, id, text));
         }
         return Optional.empty();
     }

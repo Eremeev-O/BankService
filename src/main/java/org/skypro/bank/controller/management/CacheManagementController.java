@@ -1,9 +1,10 @@
 package org.skypro.bank.controller.management;
 
 import org.skypro.bank.repository.RecommendationsRepository;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,8 +21,8 @@ public class CacheManagementController {
     }
 
     @PostMapping("/clear-caches")
-    public ResponseEntity<Void> clearCaches() {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void clearCaches() {
         recommendationsRepository.clearAllCaches();
-        return ResponseEntity.noContent().build();
     }
 }
